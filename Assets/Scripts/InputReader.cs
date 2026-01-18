@@ -1,0 +1,22 @@
+using System;
+using UnityEngine;
+
+public class InputReader : MonoBehaviour
+{
+    private const int MouseButton = 0;
+
+    [SerializeField] private Camera _ñamera;
+
+    public event Action<Collider> ObjectSelected;
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(MouseButton))
+        {
+            Ray ray = _ñamera.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+                ObjectSelected?.Invoke(hit.collider);
+        }
+    }
+}
