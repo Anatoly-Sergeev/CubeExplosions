@@ -5,6 +5,7 @@ public class DividerCube
 {
     private const int MinCubesCount = 2;
     private const int MaxCubesCount = 6;
+    private const int ScaleReductionFactor = 2;
 
     [SerializeField] private FactoryCube _factory;
     [SerializeField] private InputReader _input;
@@ -19,28 +20,24 @@ public class DividerCube
         _input.ObjectSelected -= DividingCubes;
     }
 
-    private void DividingCubes(Collider selectedCube)
+    private void DividingCubes(Collider cube)
     {
-        for (int i = GetRandomCubesCount(); i > 0; i--)
-        {
-            GameObject cube = _factory.CreateCube(selectedCube.transform);
-
-            if (cube.TryGetComponent<Renderer>(out Renderer render))
-                render.material.color = new(Random.value, Random.value, Random.value);
-
-            cube.transform.localScale = selectedCube.transform.localScale / 2;
-        }
-
-        Destroy(selectedCube.gameObject);
-    }
-
-    private void ExplosionCube()
-    {
-
+        _factory.CreateCubes(GetRandomCubesCount(), cube.transform.position, cube.transform.rotation, DecreaseCubeScale(cube.transform.localScale));
+        Destroy(cube.gameObject);
     }
 
     private int GetRandomCubesCount()
     {
         return Random.Range(MinCubesCount, MaxCubesCount + 1);
+    }
+
+    private Vector3 DecreaseCubeScale(Vector3 scale)
+    {
+        return scale / ScaleReductionFactor;
+    }
+
+    private void ExplosionCube()
+    {
+
     }
 }
