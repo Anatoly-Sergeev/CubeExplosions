@@ -7,7 +7,7 @@ public class InputReader : MonoBehaviour
 
     [SerializeField] private Camera _ñamera;
 
-    public event Action<Collider> ObjectSelected;
+    public event Action<Cube> CubeSelected;
 
     private void Update()
     {
@@ -16,7 +16,12 @@ public class InputReader : MonoBehaviour
             Ray ray = _ñamera.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hit))
-                ObjectSelected?.Invoke(hit.collider);
+            {
+                if (hit.collider.TryGetComponent(out Cube cube))
+                {
+                    CubeSelected?.Invoke(cube);
+                }
+            }
         }
     }
 }
