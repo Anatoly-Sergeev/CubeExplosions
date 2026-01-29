@@ -23,7 +23,9 @@ public class Divider : MonoBehaviour
     private void DividingCubes(Cube cube)
     {
         if (CanDividing(cube.DivideChance))
+        {
             _exploder.ExplosionCubes(cube.transform.position, _spawn.SpawnCubes(GetRandomCubesCount(), cube.transform.position, cube.transform.rotation, DecreaseCubeScale(cube.transform.localScale), DecreaseDivideChance(cube.DivideChance)));
+        }
     }
 
     private int GetRandomCubesCount()

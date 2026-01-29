@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        const int StartCubeCount = 7;
+        const int StartCubeCount = 13;
         const float StartDivideChance = 1f;
 
         SpawnCubes(StartCubeCount, Vector3.up, Quaternion.identity, Vector3.one, StartDivideChance);
